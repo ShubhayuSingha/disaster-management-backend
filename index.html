@@ -116,7 +116,7 @@
             elements.waterData.innerText = data.waterLevel.toFixed(1) + ' cm';
             elements.shakeData.innerText = data.shake.toFixed(2);
             elements.gpsData.innerText = `${data.latitude.toFixed(4)}, ${data.longitude.toFixed(4)}`;
-            elements.rainData.innerText = data.isRaining ? 'Raining' : 'Clear';
+            elements.rainData.innerText = data.rainAnalog;
             elements.flameData.innerText = data.isFlame ? 'Detected' : 'Normal';
 
             // --- 2. I'VE REMOVED THE ENTIRE THRESHOLD CHECKING BLOCK ---
