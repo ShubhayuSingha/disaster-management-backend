@@ -21,7 +21,7 @@
         .sensor-card h2 { margin-top: 0; font-size: 1.1em; color: #a2a2a2; }
         .sensor-card p { font-size: 2em; margin: 0; color: #fff; font-weight: bold; }
         
-        /* --- MODIFIED: CSS class for the whole card alert --- */
+        /* --- THIS CSS IS NOW UNUSED, BUT IT'S OK TO LEAVE IT --- */
         .card-alert {
             background-color: #4a1c22; /* A darker red background */
             border: 2px solid #cf6679; /* A bright red border */
@@ -87,17 +87,10 @@
     <script>
         const socket = io();
 
-        const THRESHOLDS = {
-            temperature: 45,
-            humidity: 85,
-            smoke: 700,
-            pm25: 55,
-            pm10: 155,
-            waterLevel: 100, // Assuming a threshold in cm
-            shake: 4.0     // Assuming a magnitude for an earthquake
-        };
+        // --- I'VE REMOVED THE 'THRESHOLDS' OBJECT ---
 
-        // Get references to all the paragraph elements AND the parent sensor-card divs
+        // Get references to all the paragraph elements
+        // (Note: we don't need the parent card divs anymore)
         const elements = {
             // Data paragraphs
             tempData: document.getElementById('temp-data'),
@@ -109,18 +102,8 @@
             rainData: document.getElementById('rain-data'),
             flameData: document.getElementById('flame-data'),
             shakeData: document.getElementById('shake-data'),
-            gpsData: document.getElementById('gps-data'),
-            // Parent card divs for alert styling
-            tempCard: document.getElementById('temp-card'),
-            humidityCard: document.getElementById('humidity-card'),
-            smokeCard: document.getElementById('smoke-card'),
-            pm25Card: document.getElementById('pm25-card'),
-            pm10Card: document.getElementById('pm10-card'),
-            waterCard: document.getElementById('water-card'),
-            rainCard: document.getElementById('rain-card'),
-            flameCard: document.getElementById('flame-card'),
-            shakeCard: document.getElementById('shake-card')
-            // GPS card doesn't need an alert, so no corresponding ID here
+            gpsData: document.getElementById('gps-data')
+            // --- I'VE REMOVED THE '...Card' REFERENCES ---
         };
 
         socket.on('sensor-data', (data) => {
@@ -136,18 +119,8 @@
             elements.rainData.innerText = data.isRaining ? 'Raining' : 'Clear';
             elements.flameData.innerText = data.isFlame ? 'Detected' : 'Normal';
 
-            // --- 2. Check thresholds and apply/remove 'card-alert' class to the parent card ---
-            elements.tempCard.classList.toggle('card-alert', data.temperature > THRESHOLDS.temperature);
-            elements.humidityCard.classList.toggle('card-alert', data.humidity > THRESHOLDS.humidity);
-            elements.smokeCard.classList.toggle('card-alert', data.smoke > THRESHOLDS.smoke);
-            elements.pm25Card.classList.toggle('card-alert', data.pm25 > THRESHOLDS.pm25);
-            elements.pm10Card.classList.toggle('card-alert', data.pm10 > THRESHOLDS.pm10);
-            elements.waterCard.classList.toggle('card-alert', data.waterLevel > THRESHOLDS.waterLevel);
-            elements.shakeCard.classList.toggle('card-alert', data.shake > THRESHOLDS.shake);
+            // --- 2. I'VE REMOVED THE ENTIRE THRESHOLD CHECKING BLOCK ---
             
-            // For boolean values (the condition is the value itself)
-            elements.rainCard.classList.toggle('card-alert', data.isRaining);
-            elements.flameCard.classList.toggle('card-alert', data.isFlame);
         });
     </script>
 </body>
